@@ -6,7 +6,7 @@
 ################################################
 
 VENV="py3env"
-
+REQ="requirements.txt"
 
 ### Pi config
 
@@ -39,7 +39,7 @@ sudo apt-get install python-virtualenv
 # Use python3
 virtualenv -p /usr/bin/python3 $VENV
 . $VENV/bin/activate
-# Install flask
-sudo pip install flask
+# Install all requirements as specified by $REQ
+sudo pip install $REQ
 
 deactivate
