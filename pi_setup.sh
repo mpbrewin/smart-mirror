@@ -33,6 +33,8 @@ REQ="requirements.txt"
 
 # Install chromium browser
 #sudo apt-get install chromium x11-xserver-utils unclutter
+# Install pip
+sudo apt-get install python3-pip
 
 # Install virtual env
 sudo apt-get install python-virtualenv
@@ -40,6 +42,6 @@ sudo apt-get install python-virtualenv
 virtualenv -p /usr/bin/python3 $VENV
 . $VENV/bin/activate
 # Install all requirements as specified by $REQ
-sudo pip install $REQ
+sudo pip install -r $REQ
 
 deactivate
