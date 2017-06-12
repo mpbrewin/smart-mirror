@@ -1,13 +1,14 @@
 #!/bin/bash
 
-### Script to install all necessary programs and tools for the raspberry pi
+################################################
+### Script to install all necessary programs and tools for the raspberry pi 
 ### Be sure to ensure all repositories are up to date
+################################################
 
-ENV="py3env"
+VENV="py3env"
 
 
-# Install chromium browser
-#sudo apt-get install chromium x11-xserver-utils unclutter
+### Pi config
 
 # Rotate screen - instructions taken from http://michaelteeuw.nl/post/83188136918/magic-mirror-part-v-installing-the-raspberry-pi
 # The ‘BIOS’ settings of the Raspberry Pi are stored in the /boot partition of the system. This partition contains a config.txt file with all the settings. To rotate the monitor, add the following line to this file:
@@ -27,11 +28,17 @@ ENV="py3env"
 # This completely disables all screensaving features, and makes sure chromium will start after boot an points to the localhost webserver in full screen mode.
 
 
+
+### Packages and tools
+
+# Install chromium browser
+#sudo apt-get install chromium x11-xserver-utils unclutter
+
 # Install virtual env
 sudo apt-get install python-virtualenv
 # Use python3
-virtualenv virtualenv -p /usr/bin/python3 $ENV
-. venv/bin/activate
+virtualenv -p /usr/bin/python3 $VENV
+. $VENV/bin/activate
 # Install flask
 sudo pip install flask
 
