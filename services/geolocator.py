@@ -2,13 +2,15 @@ import requests
 import json
 import config.api.urls as api_urls
 
-# Returns the location of the pi as a lat, long pair
+# Returns the location of the pi as a json object
 # else returns false and the status code
-def getLatAndLon():
+# API used: freegeoip
+# Schema: 
+def getLocation():
 	r = requests.get(api_urls.LOC_BASE)
-
+	loc = None
+	
 	if r.status_code == 200:
-		j = json.loads(r.text)
-		return j['latitude'], j['longitude']
-	else:
-		return False, r.status_code
+		loc = json.loads(r.text)
+
+	return loc, r.status_code

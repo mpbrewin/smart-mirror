@@ -5,16 +5,24 @@ display = Blueprint('display', __name__)
 
 @display.route('/')
 def showDisplay():
-	lat, lon = services.geolocator.getLatAndLon()
+	location, status = services.geolocator.getLocation()
 
-	if lat is False:
-		print("Failed to retrieve location ", lon)
+	if location is None:
+		print("Failed to retrieve location ", status)
 	else:
-		print("Lat: ", lat, ", Lon: ", lon)
+		city = location['city']
+		lat = location['latitude']
+		lon = location['longitude']
+		country = location['country_code']
+
+		print(city)
+
 		weather, status = services.weather.getCurrentWeather(lat, lon)
-		if weather is False:
+		if weather is None:
 			print("Failed to retrieve weather ", status)
 		else:
 			print(weather)
+			temp = weather['main']['temp']
+			cond = weather['weather'][0]['description']
 
-	return render_template('display.html')
+	return render_template('display.html', city=city, temp=temp, cond=cond)
