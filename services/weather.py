@@ -1,8 +1,11 @@
 import requests
 import json
-from config.flags import temp_units
 import config.api.keys as api_keys
 import config.api.urls as api_urls
+
+# Flags
+temp_units = 'imperial' 		#imperial (F), metric (C)
+
 
 # Returns the weather of the given lat and long as json
 # else returns false and the status code
