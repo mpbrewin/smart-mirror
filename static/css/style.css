@@ -1,4 +1,21 @@
 body{
 	background-color: black;
 	color: white;
+	font-family: Inconsonlata;
+}
+
+.container{
+	display: inline-block;
+}
+
+.container-left{
+	float: left;
+}
+
+.container-right{
+	float: right;
+}
+
+#time{
+	font-size: 24px;
 }

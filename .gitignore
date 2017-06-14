@@ -1,2 +1,4 @@
 *.pyc
+__pycache__
 py3env/
+config/api/keys.py
