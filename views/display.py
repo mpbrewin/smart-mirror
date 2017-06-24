@@ -15,8 +15,6 @@ def showDisplay():
 		lon = location['longitude']
 		country = location['country_code']
 
-		print(city)
-
 		weather, status = services.weather.getCurrentWeather(lat, lon)
 		if weather is None:
 			print("Failed to retrieve weather ", status)
@@ -25,4 +23,4 @@ def showDisplay():
 			temp = weather['main']['temp']
 			cond = weather['weather'][0]['description']
 
-	return render_template('display.html', city=city, temp=temp, cond=cond)
+	return render_template('display.html')

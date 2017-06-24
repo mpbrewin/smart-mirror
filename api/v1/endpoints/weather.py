@@ -1,0 +1,1 @@
+weather_namespace = api.namespace('smartmirror/weather', description='Operations related to weather')

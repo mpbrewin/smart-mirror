@@ -1,0 +1,1 @@
+geolocator_namespace = api.namespace('smartmirror/geolocator', description='Operations related to geolocation')

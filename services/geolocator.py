@@ -1,6 +1,6 @@
 import requests
 import json
-import config.api.urls as api_urls
+import config.dev.urls as api_urls
 
 # Returns the location of the pi as a json object
 # else returns false and the status code

@@ -1,8 +1,8 @@
 import requests
 import json
-import config.api.keys as api_keys
-import config.api.urls as api_urls
-import config.user_config as user_config
+import config.dev.keys as api_keys
+import config.dev.urls as api_urls
+import config.user_pref as user_config
 
 # Returns the weather of the given lat and long as json
 # else returns false and the status code

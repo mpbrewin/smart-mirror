@@ -1,0 +1,1 @@
+WTHR_KEY = "44920af6825bed58a8b7cc9d708a7f0a"

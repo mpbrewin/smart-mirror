@@ -7,18 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Inconsolata" />
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
 	<script type=text/javascript src="{{url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
+	<script type=text/javascript src="{{url_for('static', filename='js/display.js') }}"></script>
 </head>
 
 <body>
 	<div class="container container-left">
 		<div id="clock">
 			<div id="time-period">
-				<label id="time">10:03</label>
-				<label id="period">PM</label>
+				<label id="time"></label>
+				<label id="period"></label>
 			</div>
 			<div id="date">
-				<label id="dayofweek">Tue,</label>
-				<label id="month-day">Jun 13</label>
+				<label id="dayofweek"></label>
+				<label id="month-day"></label>
 			</div>
 		</div>
 	</div>
@@ -28,6 +29,7 @@
 			<div id="icon-temp">
 				<img id="weather-icon" src="/static/img/images.png">
 				<label id="temperature">76°</label>
+			</div>
 			<div>
 				<label id= "conditions">Clear skies</label>
 			</div>
