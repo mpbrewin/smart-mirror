@@ -19,37 +19,50 @@ class CurrentWeather(Resource):
 
 		Uses openweathermap external API.
 
-		The latitude and longitude can be provided as a query.
+		API Key is hosted server side, and does not need to be provided.
+
+		The latitude and longitude can be provided as query parameters.
 
 		Example: 
 		```
 		smartmirror/weather/current?lat=34.1702&lon=-118.9558
 		```
 
-		If lat and lon is not provided, the API will automatically determine the location of the PI by first calling ```smartmirror/geolocator```
+		If lat and lon are not provided, the API will automatically determine the location of the PI by first calling ```smartmirror/geolocator```
 		"""
 		response_dict = None
 		code = 200
 
-		location, status = services.geolocator.getLocation()
-		if location is None:
-			response_dict = {'status': http_codes._503, 'type': status.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
-			code = 503
-			print(response_dict)
-		else:
-			lat = location['latitude']
-			lon = location['longitude']
+		lat = None; lon = None
+		location_args =  location_parser.parse_args()
 
-			weather, status = services.weather.getCurrentWeather(lat, lon)
-			if weather is None:
-				response_dict = {'status': http_codes._503, 'type': status.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.WTHR_BASE}
+		#parse location arguments (if present)
+		if location_args['lat'] is None or location_args['lon'] is None:
+			#lat and lon were not provided, determine location
+			location, status = services.geolocator.getLocation()
+			if location is None:	#Error
+				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
 				code = 503
 				print(response_dict)
 			else:
-				#print(weather)
-				response_dict = {'status': http_codes._200, 'data':weather}
-				#temp = weather['main']['temp']
-				#cond = weather['weather'][0]['description']
+				lat = location['latitude']
+				lon = location['longitude']
+		else:
+			#lat and lon were provided, parse them
+			lat = location_args['lat']
+			lon = location_args['lon']
+
+		#weather
+		weather, status = services.weather.getCurrentWeather(lat, lon)
+		if weather is None:
+			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.WTHR_BASE}
+			code = 503
+			print(response_dict)
+		else:
+			#print(weather)
+			response_dict = {'status': http_codes._200, 'data':weather}
+			#temp = weather['main']['temp']
+			#cond = weather['weather'][0]['description']
 			
 		return response_dict, code
 
