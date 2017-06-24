@@ -3,7 +3,7 @@ import json
 import config.dev.urls as api_urls
 
 # Returns the location of the pi as a json object
-# else returns false and the status code
+# else returns None and the status code
 # API used: freegeoip
 # Schema: 
 def getLocation():
