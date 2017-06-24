@@ -1,21 +1,32 @@
 from flask_restplus import Resource
 from api.v1.restplus import api_ns
-import services.weather
+from api.v1.parsers import location_parser
 import config.dev.http_codes as http_codes
 import config.dev.urls as ext_api_urls
+import services.weather
 
 weather_ns = api_ns.namespace('smartmirror/weather', description='Operations related to weather')
 
 @weather_ns.route('/current')
 class CurrentWeather(Resource):
+	@api_ns.expect(location_parser) #Location (as lat and lon) is optional
 	@api_ns.response(200, http_codes._200)
 	@api_ns.response(400, http_codes._400)
 	@api_ns.response(503, http_codes._503)
 	def get(self):
 		"""
-		Returns the current weather of the region as JSON on success.
+		Returns the current weather of the region as JSON.
+
 		Uses openweathermap external API.
-		Automatically determines location.
+
+		The latitude and longitude can be provided as a query.
+
+		Example: 
+		```
+		smartmirror/weather/current?lat=34.1702&lon=-118.9558
+		```
+
+		If lat and lon is not provided, the API will automatically determine the location of the PI by first calling ```smartmirror/geolocator```
 		"""
 		response_dict = None
 		code = 200
@@ -41,3 +52,4 @@ class CurrentWeather(Resource):
 				#cond = weather['weather'][0]['description']
 			
 		return response_dict, code
+
