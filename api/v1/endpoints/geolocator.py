@@ -4,7 +4,7 @@ import config.dev.http_codes as http_codes
 import config.dev.urls as ext_api_urls
 import services.geolocator
 
-geolocator_ns = api_ns.namespace('smartmirror/geolocator', description='Operations related to geolocation')
+geolocator_ns = api_ns.namespace('geolocator', description='Operations related to geolocation')
 
 @geolocator_ns.route('/')
 class Geolocator(Resource):

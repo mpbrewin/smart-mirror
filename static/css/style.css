@@ -1,7 +1,7 @@
 body{
 	background-color: black;
 	color: white;
-	font-family: Inconsonlata;
+	font-family: sans-serif;
 }
 
 .container{
@@ -14,6 +14,7 @@ body{
 
 .container-right{
 	float: right;
+	text-align: right;
 }
 
 #time{
