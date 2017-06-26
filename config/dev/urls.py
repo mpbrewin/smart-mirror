@@ -13,3 +13,4 @@ OWM_PARAM_UNIT='units='
 
 WG_BASE = 'http://api.wunderground.com/api/'
 WG_HOURLY = 'hourly'
+WG_DAILY= 'forecast10day'

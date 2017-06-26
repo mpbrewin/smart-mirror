@@ -17,6 +17,59 @@ body{
 	text-align: right;
 }
 
-#time{
-	font-size: 24px;
+.widget{
+	margin-bottom: 25px;
 }
+
+#time{
+	font-size: 62px;
+}
+
+#period{
+	font-size: 26px;
+}
+
+#date{
+	font-size: 26px;
+}
+
+#city{
+	font-size: 28px;
+}
+
+#weather-icon{
+	vertical-align: middle;
+}
+
+#temperature{
+	font-size: 50px;
+	vertical-align: middle;
+}
+
+#conditions{
+	font-size: 22px;
+}
+
+.forecast-table{
+	border-top: 1px solid rgba(255, 255, 255, .4);
+	border-bottom: 1px solid rgba(255, 255, 255, .4);
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.forecast-table td{
+	border-left: 1px solid rgba(255, 255, 255, .1);
+	border-right: 1px solid rgba(255, 255, 255, .1);
+	text-align: center;
+	padding: 4px;
+	margin: 0;
+	font-size: 17px;
+}
+
+.weather-label{
+	float: left;
+	font-size: 18px;
+	margin-bottom: 4px;
+}
+
+

@@ -44,7 +44,7 @@ def getHourlyForecast(state, city):
 # Returns a 5 day, 3 hour forecast of the give lat and lon as json
 # else returns None and the status code
 # API used: openweathermap
-def getWeatherForecast(lat, lon):
-	return httpOpenWeatherMap(ext_api_urls.OWM_FCST, lat, lon)
+def getDailyForecast(lat, lon):
+	return httpWunderground(ext_api_urls.WG_DAILY, lat, lon)
 
 

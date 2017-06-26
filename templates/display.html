@@ -11,60 +11,97 @@
 </head>
 
 <body>
-	<div class="container container-left">
-		<div id="clock">
-			<div id="time-period">
-				<label id="time"></label>
-				<label id="period"></label>
-			</div>
-			<div id="date">
-				<label id="dayofweek"></label>
-				<label id="month-day"></label>
-			</div>
+	<div class="container container-left" id="clock">
+		<div id="time-period">
+			<label id="time"></label>
+			<label id="period"></label>
+		</div>
+		<div id="date">
+			<label id="dayofweek"></label>
+			<label id="month-day"></label>
 		</div>
 	</div>
 	
-	<div class="container container-right">
-		<div id="weather">
-			<div id="current-weather">
-				<label id="city"></label>
-				<div id="icon-temp">
-					<img id="weather-icon">
-					<label id="temperature"></label>
-				</div>
-				<div>
-					<label id= "conditions"></label>
-				</div>
+	<div class="container container-right" id="weather">
+		<div class="widget" id="current-weather" >
+			<label id="city"></label>
+			<div id="icon-temp">
+				<img id="weather-icon">
+				<label id="temperature"></label>
 			</div>
-			<div id="hourly-forecast">
-				<label id="hourly-label">Hourly</label>
-				<table class="forecast-table" id="hourly-table">
-					<tr id='hourly-icons'>
-						<td><img id="hourly-icon-0"></td>
-						<td><img id="hourly-icon-1"></td>
-						<td><img id="hourly-icon-2"></td>
-						<td><img id="hourly-icon-3"></td>
-						<td><img id="hourly-icon-4"></td>
-						<td><img id="hourly-icon-5"></td>
-					</tr>
-					<tr id='hourly-times'>
-						<td id="hourly-time-0"></td>
-						<td id="hourly-time-1"></td>
-						<td id="hourly-time-2"></td>
-						<td id="hourly-time-3"></td>
-						<td id="hourly-time-4"></td>
-						<td id="hourly-time-5"></td>
-					</tr>
-					<tr id="hourly-temps">
-						<td id="hourly-temp-0"></td>
-						<td id="hourly-temp-1"></td>
-						<td id="hourly-temp-2"></td>
-						<td id="hourly-temp-3"></td>
-						<td id="hourly-temp-4"></td>
-						<td id="hourly-temp-5"></td>
-					</tr>
-				</table>
+			<div>
+				<label id= "conditions"></label>
 			</div>
+		</div>
+		<div class="widget" id="hourly-forecast">
+			<div>
+			<label class="weather-label" id="hourly-label">Hourly</label>
+			</div>
+			<table class="forecast-table" id="hourly-table">
+				<tr id='hourly-times'>
+					<td id="hourly-time-0"></td>
+					<td id="hourly-time-1"></td>
+					<td id="hourly-time-2"></td>
+					<td id="hourly-time-3"></td>
+					<td id="hourly-time-4"></td>
+					<td id="hourly-time-5"></td>
+				</tr>
+				<tr id='hourly-icons'>
+					<td><img id="hourly-icon-0"></td>
+					<td><img id="hourly-icon-1"></td>
+					<td><img id="hourly-icon-2"></td>
+					<td><img id="hourly-icon-3"></td>
+					<td><img id="hourly-icon-4"></td>
+					<td><img id="hourly-icon-5"></td>
+				</tr>
+				<tr id="hourly-temps">
+					<td id="hourly-temp-0"></td>
+					<td id="hourly-temp-1"></td>
+					<td id="hourly-temp-2"></td>
+					<td id="hourly-temp-3"></td>
+					<td id="hourly-temp-4"></td>
+					<td id="hourly-temp-5"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="widget" id="daily-forecast">
+			<div>
+			<label class="weather-label" id="daily-label">Daily</label>
+			</div>
+			<table class="forecast-table" id="daily-table">
+				<tr id= 'daily-dayofweek'>
+					<td id="daily-dayofweek-0">Today</td>
+					<td id="daily-dayofweek-1"></td>
+					<td id="daily-dayofweek-2"></td>
+					<td id="daily-dayofweek-3"></td>
+					<td id="daily-dayofweek-4"></td>
+					<td id="daily-dayofweek-5"></td>
+				</tr>
+				<tr id='daily-icons'>
+					<td><img id="daily-icon-0"></td>
+					<td><img id="daily-icon-1"></td>
+					<td><img id="daily-icon-2"></td>
+					<td><img id="daily-icon-3"></td>
+					<td><img id="daily-icon-4"></td>
+					<td><img id="daily-icon-5"></td>
+				</tr>
+				<tr id='daily-highs'>
+					<td id="daily-high-0"></td>
+					<td id="daily-high-1"></td>
+					<td id="daily-high-2"></td>
+					<td id="daily-high-3"></td>
+					<td id="daily-high-4"></td>
+					<td id="daily-high-5"></td>
+				</tr>
+				<tr id="daily-lows">
+					<td id="daily-low-0"></td>
+					<td id="daily-low-1"></td>
+					<td id="daily-low-2"></td>
+					<td id="daily-low-3"></td>
+					<td id="daily-low-4"></td>
+					<td id="daily-low-5"></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>

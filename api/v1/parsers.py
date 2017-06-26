@@ -8,3 +8,7 @@ current_weather_parser.add_argument('lon', type=float, required=False, location=
 hourly_forecast_parser = reqparse.RequestParser()
 hourly_forecast_parser.add_argument('state', type=str, required=False, location='args')
 hourly_forecast_parser.add_argument('city', type=str, required=False, location='args')
+
+daily_forecast_parser = reqparse.RequestParser()
+daily_forecast_parser.add_argument('state', type=str, required=False, location='args')
+daily_forecast_parser.add_argument('city', type=str, required=False, location='args')
