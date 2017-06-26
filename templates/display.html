@@ -26,13 +26,44 @@
 	
 	<div class="container container-right">
 		<div id="weather">
-			<label id="city"></label>
-			<div id="icon-temp">
-				<img id="weather-icon">
-				<label id="temperature"></label>
+			<div id="current-weather">
+				<label id="city"></label>
+				<div id="icon-temp">
+					<img id="weather-icon">
+					<label id="temperature"></label>
+				</div>
+				<div>
+					<label id= "conditions"></label>
+				</div>
 			</div>
-			<div>
-				<label id= "conditions"></label>
+			<div id="hourly-forecast">
+				<label id="hourly-label">Hourly</label>
+				<table class="forecast-table" id="hourly-table">
+					<tr id='hourly-icons'>
+						<td><img id="hourly-icon-0"></td>
+						<td><img id="hourly-icon-1"></td>
+						<td><img id="hourly-icon-2"></td>
+						<td><img id="hourly-icon-3"></td>
+						<td><img id="hourly-icon-4"></td>
+						<td><img id="hourly-icon-5"></td>
+					</tr>
+					<tr id='hourly-times'>
+						<td id="hourly-time-0"></td>
+						<td id="hourly-time-1"></td>
+						<td id="hourly-time-2"></td>
+						<td id="hourly-time-3"></td>
+						<td id="hourly-time-4"></td>
+						<td id="hourly-time-5"></td>
+					</tr>
+					<tr id="hourly-temps">
+						<td id="hourly-temp-0"></td>
+						<td id="hourly-temp-1"></td>
+						<td id="hourly-temp-2"></td>
+						<td id="hourly-temp-3"></td>
+						<td id="hourly-temp-4"></td>
+						<td id="hourly-temp-5"></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>

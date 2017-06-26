@@ -2,11 +2,14 @@
 LOC_BASE = 'http://freegeoip.net/json'
 
 # Weather
-WTHR_BASE = 'http://api.openweathermap.org/data'
-WTHR_VER = '/2.5'
-WTHR_CURR = '/weather?'
-WTHR_FCST = '/forecast?'
-WTHR_PARAM_LAT='lat='
-WTHR_PARAM_LON='lon='
-WTHR_PARAM_KEY='APPID='
-WTHR_PARAM_UNIT='units='
+OWM_BASE = 'http://api.openweathermap.org/data'
+OWM_VER = '/2.5'
+OWM_CURR = '/weather?'
+OWM_FCST = '/forecast?'
+OWM_PARAM_LAT='lat='
+OWM_PARAM_LON='lon='
+OWM_PARAM_KEY='APPID='
+OWM_PARAM_UNIT='units='
+
+WG_BASE = 'http://api.wunderground.com/api/'
+WG_HOURLY = 'hourly'

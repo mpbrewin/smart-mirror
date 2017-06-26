@@ -1,0 +1,2 @@
+* parameter checking of internal apis
+* print errors to html page
