@@ -4,6 +4,7 @@ var LOC_API = URL_BASE + "geolocator"
 var WTHR_API = URL_BASE + "weather/current"
 var HOUR_FCST_API = URL_BASE + "weather/forecast/hourly"
 var DAILY_FCST_API = URL_BASE + "weather/forecast/daily"
+var REM_API = URL_BASE + "reminders"
 
 var WTHR_ICON_BASE = "https://icons.wxug.com/i/c/k/"
 
@@ -13,6 +14,7 @@ var CLK_INTERVAL = 1000 //1 sec
 var WTHR_INTERVAL = 1800000 //30 min
 var HOUR_FCST_INTERVAL = 3600000 //1 hr
 var DAILY_FCST_INTERVAL =43200000 //12 hrs
+var REM_INTERVAL = 3600000 //1hr
 
 var FORECAST_TABLE_WIDTH = 6
 
@@ -23,7 +25,7 @@ var DAY_NAMES= ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
   this map serves as a way to convert the openweathermap icon url to a wunderground
   icon url without a separate api call.
 */
-var ICON_CONVERTER = [['01d', 'clear'], ['01n', 'nt_clear'], ['02d', 'partlycloudy'], ['02n', 'nt_partlycloudy'],
+var ICON_CONVERTER = [['01d', 'clear'], ['01n', 'nt_clear'], ['02d', 'clear'], ['02n', 'nt_clear'],
 			['03d', 'mostlycloudy'], ['03n', 'nt_mostlycloudy'], ['04d', 'cloudy'], ['04n', 'nt_cloudy'],
 			['09d', 'sleet'], ['09n', 'nt_sleet'], ['10d', 'rain'], ['10n', 'nt_rain'], ['11d', 'tstorms'],
 			['11n', 'nt_tstorms'], ['13d', 'snow'], ['13n', 'nt_snow'], ['50d', 'fog'], ['50n', 'nt_fog']];
@@ -56,11 +58,95 @@ function updateClock(){
 	$('#time').html((hour > 12 ? hour - 12 : hour) + 
 		":" + (minute < 10 ? "0" : "") + minute + 
 		":" + (second < 10 ? "0" : "") + second)
+
+	/*$('#hour-min').html((hour > 12 ? hour - 12 : hour) + 
+		":" + (minute < 10 ? "0" : "") + minute)
+	$('#seconds').html((second < 10 ? "0" : "") + second)-->*/
 	$('#period').html(hour < 12 ? "AM" : "PM")
 
 	$('#dayofweek').html(DAY_NAMES[date.getDay()] + ", ")
 	$('#month-day').html(MONTH_NAMES[date.getMonth()] + " " + date.getDate())	
 }
+
+//Update the reminders list
+function updateReminders(){
+	$.get(REM_API, function(response, status){
+		var reminders = []
+
+		$.each($.parseJSON(response.data), function(i, item) {
+			var event_title = item.title
+			var event_date = item.date
+			var event_day = event_date[2]
+			var event_month = event_date[1]
+			var event_year = event_date[0]
+			var event_hour = event_date[3] > 12 ? event_date[3] - 12 : event_date[3]
+			var event_min = (event_date[4] < 10 ? "0" : "") + event_date[4]
+			var event_period = event_date[3] < 12 ? "AM" : "PM"
+
+			//Format dates for comparison
+			//Comparison should be daylight-savings safe
+			var today = new Date()
+			today.setDate(today.getDate())
+			var today_day = today.getDate()
+			var today_month = today.getMonth() + 1 
+			var today_year = today.getFullYear()
+			var tomorrow = new Date()
+			tomorrow.setDate(tomorrow.getDate() + 1)
+			var tomorrow_day = tomorrow.getDate()
+			var tomorrow_month = tomorrow.getMonth() + 1
+			var tomorrow_year = tomorrow.getFullYear()
+
+			var event = null
+			if(event_year == today_year && event_month == today_month && event_day < today_day){
+				//Event already passed
+				return
+			}
+			else if (event_year == today_year && event_month == today_month && event_day == today_day){
+				event = "Today at " + event_hour + ":" + event_min + " " + event_period
+			}
+			else if(event_year == tomorrow_year && event_month == tomorrow_month && event_day ==  tomorrow_day){
+				event = "Tomorrow at " + event_hour + ":" + event_min + " " + event_period
+			}
+			else{
+				//Count the days until the event
+				//Round down to midnight so that an event tomorrow will be considered 1 day away (even if it is 8 hours away)
+				var today_rounded = new Date(today_year, today_month, today_day)
+				today_rounded.setHours(0,0,0)
+				var event_rounded = new Date(event_year, event_month, event_day)
+				event_rounded.setHours(0,0,0)
+
+				var days_diff = Math.round(Math.abs((today_rounded.getTime() - event_rounded.getTime())/(86400000))) //Seconds in a day
+				event = "In " + days_diff + " days"
+			}
+
+			//Create a timestamp by imploding the event date array
+			var event_timestamp = event_date.join("")
+
+			//Add the timestamp and event title and string as a 'pair' - will be sorted later
+			var event_info = []
+			event_info.push([event_title, event])
+			reminders.push([event_timestamp, event_info])
+		});
+
+		//Sort the reminders by their dates
+		reminders.sort(function(a,b){
+			if (a[0] < b[0]){
+				return -1
+			}
+			if(a[0] > b[0]){
+				return 1
+			}
+			return 0
+		})
+
+		for(var i=0; i < reminders.length; i++){
+			$('#event-name-' + i).html(reminders[i][1][0][0])
+			$('#event-date-' + i).html(reminders[i][1][0][1])
+		}
+
+	})
+}
+
 
 //Get location as lat and lon. Called once upon page loading
 function getLocation(){
@@ -96,6 +182,7 @@ function updateWeather(){
 		//Update the temperature
 		$('#temperature').html(Math.round(response.data.main.temp) + "°")
 
+		//Update the icon
 		var icon_code = response.data.weather[0].icon
 		var icon_url = WTHR_ICON_BASE + ICON_MAP.get(icon_code) + ".gif"
 		$('#weather-icon').attr('src', icon_url)
@@ -138,7 +225,6 @@ function updateDailyForecast(){
 	}
 
 	$.get(fcst_path, function(response, status){
-		console.log(response)
 		for(var i=0; i<FORECAST_TABLE_WIDTH; i++){ //0 corresponds to today. The first entry will be today's highs and lows
 			//Update the days of the week
 			if(i != 0){	//Leave the label of the first entry as today
@@ -176,4 +262,7 @@ $(document).ready(function(){
 
 	updateDailyForecast()
 	setInterval(updateDailyForecast, DAILY_FCST_INTERVAL)
+
+	updateReminders()
+	setInterval(updateReminders, REM_INTERVAL)
 })
