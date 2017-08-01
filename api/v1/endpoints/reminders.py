@@ -1,6 +1,6 @@
 from flask_restplus import Resource
 from api.v1.restplus import api_ns
-import config.dev.http_codes as http_codes
+import api.v1.http_codes as http_codes
 import services.reminders
 
 reminders_ns = api_ns.namespace('reminders', description='Operations related to the reminders list')

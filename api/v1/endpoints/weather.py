@@ -1,8 +1,7 @@
 from flask_restplus import Resource
 from api.v1.restplus import api_ns
 from api.v1.parsers import current_weather_parser, hourly_forecast_parser, daily_forecast_parser
-import config.dev.http_codes as http_codes
-import config.dev.urls as ext_api_urls
+import api.v1.http_codes as http_codes
 import services.weather
 
 weather_ns = api_ns.namespace('weather', description='Operations related to weather')
@@ -41,7 +40,7 @@ class CurrentWeather(Resource):
 			#lat and lon were not provided, determine location
 			location, status = services.geolocator.getLocation()
 			if location is None:	#Error
-				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
+				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make geolocation request"}
 				code = 503
 				print(response_dict)
 				return response_dict, code
@@ -56,7 +55,7 @@ class CurrentWeather(Resource):
 		#weather
 		weather, status = services.weather.getCurrentWeather(lat, lon)
 		if weather is None:
-			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.OWM_BASE}
+			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make weather request"}
 			code = 503
 			print(response_dict)
 		else:
@@ -103,7 +102,7 @@ class HourlyForecast(Resource):
 			#state and city were not provided, determine location
 			location, status = services.geolocator.getLocation()
 			if location is None:	#Error
-				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
+				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make geolocation request"}
 				code = 503
 				print(response_dict)
 				return response_dict, code
@@ -120,7 +119,7 @@ class HourlyForecast(Resource):
 		#weather
 		weather, status = services.weather.getHourlyForecast(state, city)
 		if weather is None:
-			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.WG_BASE}
+			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make hourly forecast request"}
 			code = 503
 			print(response_dict)
 		else:
@@ -166,7 +165,7 @@ class DailyForecast(Resource):
 			#state and city were not provided, determine location
 			location, status = services.geolocator.getLocation()
 			if location is None:	#Error
-				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
+				response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make geolocation request"}
 				code = 503
 				print(response_dict)
 				return response_dict, code
@@ -183,7 +182,7 @@ class DailyForecast(Resource):
 		#weather
 		weather, status = services.weather.getDailyForecast(state, city)
 		if weather is None:
-			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.WG_BASE}
+			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make daily forecast request"}
 			code = 503
 			print(response_dict)
 		else:

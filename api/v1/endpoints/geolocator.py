@@ -1,7 +1,6 @@
 from flask_restplus import Resource
 from api.v1.restplus import api_ns
-import config.dev.http_codes as http_codes
-import config.dev.urls as ext_api_urls
+import api.v1.http_codes as http_codes
 import services.geolocator
 
 geolocator_ns = api_ns.namespace('geolocator', description='Operations related to geolocation')
@@ -21,7 +20,7 @@ class Geolocator(Resource):
 
 		location, status = services.geolocator.getLocation()
 		if location is None:
-			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make request to " + ext_api_urls.LOC_BASE}
+			response_dict = {'status': http_codes._503, 'type': http_codes.EXT_ERR, 'error_message': "Failed to make geolocation request"}
 			code = 503
 			print(response_dict)
 		else:

@@ -1,13 +1,15 @@
 import requests
 import json
-import config.dev.urls as api_urls
+
+# URLs for ext api
+LOC_BASE = 'http://freegeoip.net/json'
 
 # Returns the location of the pi as a json object
 # else returns None and the status code
 # API used: freegeoip
 # Schema: 
 def getLocation():
-	r = requests.get(api_urls.LOC_BASE)
+	r = requests.get(LOC_BASE)
 	loc = None
 	
 	if r.status_code == 200:
