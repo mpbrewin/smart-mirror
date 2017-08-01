@@ -1,4 +1,5 @@
 *.pyc
 __pycache__
 py3env/
-config/api/keys.py
+config/dev/keys.py
+config/dev/google_cal_cred.json

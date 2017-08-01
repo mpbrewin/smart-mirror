@@ -21,6 +21,8 @@ var FORECAST_TABLE_WIDTH = 6
 var MONTH_NAMES = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] 
 var DAY_NAMES= ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 
+var ERROR = "ERROR: "
+
 /*Since openweathermap has more accurate data, but wunderground has better icons,
   this map serves as a way to convert the openweathermap icon url to a wunderground
   icon url without a separate api call.
@@ -151,12 +153,29 @@ function updateReminders(){
 //Get location as lat and lon. Called once upon page loading
 function getLocation(){
 	$.get(LOC_API, function(response, status){
-		$('#city').html(response.data.city)
-		lat = response.data.latitude
-		lon = response.data.longitude
-		state_code = response.data.region_code
-		city = response.data.city
-		city = city.replace(/ /g, "_") //replace all spaces with underscores
+		if (status == "success"){
+			$('#city').html(response.data.city)	//Write city name
+			//Update globals
+			lat = response.data.latitude
+			lon = response.data.longitude
+			state_code = response.data.region_code
+			city = response.data.city
+			city = city.replace(/ /g, "_") //replace all spaces with underscores
+
+			//Setup weather updates, which rely on location
+			updateWeather()
+			setInterval(updateWeather, WTHR_INTERVAL)
+
+			updateHourlyForecast()
+			setInterval(updateHourlyForecast, HOUR_FCST_INTERVAL)
+
+			updateDailyForecast()
+			setInterval(updateDailyForecast, DAILY_FCST_INTERVAL)
+		}
+		else{
+			console.log(ERROR, "Could not determine location")
+		}
+
 	})
 }
 
@@ -253,15 +272,6 @@ $(document).ready(function(){
 	setInterval(updateClock, CLK_INTERVAL)
 
 	getLocation()
-
-	updateWeather()
-	setInterval(updateWeather, WTHR_INTERVAL)
-
-	updateHourlyForecast()
-	setInterval(updateHourlyForecast, HOUR_FCST_INTERVAL)
-
-	updateDailyForecast()
-	setInterval(updateDailyForecast, DAILY_FCST_INTERVAL)
 
 	updateReminders()
 	setInterval(updateReminders, REM_INTERVAL)

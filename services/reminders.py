@@ -15,4 +15,6 @@ def getReminders():
 			reminders.append(reminder)
 
 		return json.dumps(reminders)
+	elif reminders_service == "Google_Calendar":
+		
 	
