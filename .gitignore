@@ -2,4 +2,4 @@
 __pycache__
 py3env/
 config/dev/keys.py
-config/dev/google_cal_cred.json
+.credentials/
