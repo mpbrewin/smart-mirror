@@ -36,8 +36,9 @@ def getReminders():
 		CLIENT_SECRET_FILE = 'google_cal_cred.json'
 		APPLICATION_NAME = 'Smart Mirror'
 
-		home_dir = os.path.expanduser('.')
-		credential_dir = os.path.join(home_dir, '.credentials')
+		home_dir = os.path.expanduser('./config/auth/')
+		print(home_dir)
+		credential_dir = os.path.join(home_dir, 'credentials')
 		if not os.path.exists(credential_dir):
 			os.makedirs(credential_dir)
 		credential_path = os.path.join(credential_dir,
