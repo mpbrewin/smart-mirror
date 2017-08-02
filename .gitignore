@@ -3,4 +3,3 @@ __pycache__
 py3env/
 config/auth/keys.py
 config/auth/credentials/*
-.credentials/
