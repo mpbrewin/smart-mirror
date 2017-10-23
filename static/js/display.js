@@ -173,7 +173,7 @@ function getLocation(){
 			setInterval(updateDailyForecast, DAILY_FCST_INTERVAL)
 		}
 		else{
-			console.log(ERROR, "Could not determine location")
+			console.error("Could not determine location")
 		}
 
 	})
@@ -267,12 +267,14 @@ function updateDailyForecast(){
 	})	
 }
 
+
 /****Main****/
 $(document).ready(function(){
 	setInterval(updateClock, CLK_INTERVAL)
 
-	getLocation()
+	getLocation() //Also handles weather
 
 	updateReminders()
 	setInterval(updateReminders, REM_INTERVAL)
+
 })

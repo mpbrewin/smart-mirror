@@ -11,7 +11,9 @@ api_ns.init_app(api_blueprint)
 from api.v1.endpoints.geolocator import geolocator_ns
 from api.v1.endpoints.weather import weather_ns
 from api.v1.endpoints.reminders import reminders_ns
+from api.v1.endpoints.spotify import spotify_ns
 
 api_ns.add_namespace(geolocator_ns)
 api_ns.add_namespace(weather_ns)
 api_ns.add_namespace(reminders_ns)
+api_ns.add_namespace(spotify_ns)

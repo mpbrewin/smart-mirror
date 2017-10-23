@@ -1,3 +1,5 @@
+* Make keys.py json
+* Consider using db
 * parameter checking of internal apis
 * print errors to html page
 * read encrypted passwords from user config

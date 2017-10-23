@@ -1,8 +1,13 @@
 # smartmirror
 
+## Setup
+[sudo] pip install virtualenv
+pyvenv py3env
+export  FLASK_APP=smartmirror.py
+
 ## To Run
 ```
-export  FLASK_APP=smartmirror.py
+. py3env/bin/activate
 python3 smartmirror.py
 ```
 

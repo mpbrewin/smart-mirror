@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template
-import services.geolocator
-import services.weather
 
 display = Blueprint('display', __name__)
 

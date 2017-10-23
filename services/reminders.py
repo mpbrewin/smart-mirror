@@ -6,7 +6,7 @@ def getReminders():
 
 	if reminders_service == 'iCal':
 		from pyicloud import PyiCloudService
-		iCloud = PyiCloudService()
+		iCloud = PyiCloudService() #Password would go here?
 
 		
 		events = iCloud.calendar.events()
@@ -25,7 +25,7 @@ def getReminders():
 		from oauth2client.file import Storage
 		import datetime
 
-		## TAKEN DIRECTLY FROM GOOGLE'S EXAMPLE
+		## TAKEN DIRECTLY FROM GOOGLE'S EXAMPLE -- probably need to refresh token at some point
 		try:
 			import argparse
 			flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -37,7 +37,6 @@ def getReminders():
 		APPLICATION_NAME = 'Smart Mirror'
 
 		home_dir = os.path.expanduser('./config/auth/')
-		print(home_dir)
 		credential_dir = os.path.join(home_dir, 'credentials')
 		if not os.path.exists(credential_dir):
 			os.makedirs(credential_dir)
